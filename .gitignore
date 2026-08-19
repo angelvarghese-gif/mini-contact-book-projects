@@ -42,4 +42,12 @@ coverage/
 # Temporary files
 tmp/
 temp/
- 
+# Django virtual environment
+backend/venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Django database
+*.sqlite3
