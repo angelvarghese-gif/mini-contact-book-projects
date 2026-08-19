@@ -10,6 +10,7 @@ router.register(r'contacts', ContactViewSet, basename='contact')
 
 urlpatterns = [
     # Admin backend access panel
+    path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     
     # Secure Login and JWT Refresh actions
