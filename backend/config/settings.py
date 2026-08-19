@@ -11,50 +11,69 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# QUICK-START DEVELOPMENT SETTINGS - SUITABLE FOR PRODUCTION
-# See https://djangoproject.com
+# ============================================================
+# SECURITY
+# ============================================================
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-local-development-secret-key-change-in-production'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "mini-contact-book-backend-project.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
+# ============================================================
 # APPLICATION DEFINITION
+# ============================================================
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',  # ◄── Fixed: Added .contrib here
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # Third-party application extensions
+
+    # Third-party applications
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-    
-    # Local application domain
+
+    # Local application
     'contacts',
 ]
 
+
+# ============================================================
+# MIDDLEWARE
+# ============================================================
+
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Processes CORS headers first
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',  # ◄── Restored this missing line
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 
+# ============================================================
+# URL CONFIGURATION
+# ============================================================
+
 ROOT_URLCONF = 'config.urls'
+
+
+# ============================================================
+# TEMPLATES
+# ============================================================
 
 TEMPLATES = [
     {
@@ -72,11 +91,13 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# DATABASE CONFIGURATION
-# https://djangoproject.com
+# ============================================================
+# DATABASE
+# ============================================================
 
 DATABASES = {
     'default': {
@@ -86,8 +107,9 @@ DATABASES = {
 }
 
 
+# ============================================================
 # PASSWORD VALIDATION
-# https://djangoproject.com
+# ============================================================
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -105,8 +127,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# ============================================================
 # INTERNATIONALIZATION
-# https://djangoproject.com
+# ============================================================
 
 LANGUAGE_CODE = 'en-us'
 
@@ -117,27 +140,35 @@ USE_I18N = True
 USE_TZ = True
 
 
-# STATIC FILES (CSS, JAVASCRIPT, IMAGES)
-# https://djangoproject.com
+# ============================================================
+# STATIC FILES
+# ============================================================
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-# DEFAULT AUTO-INCREMENT PRIMARY KEY FIELD TYPE
-# https://djangoproject.com
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+# ============================================================
+# DEFAULT PRIMARY KEY
+# ============================================================
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# ==============================================================================
-# SECURITY & CROSS-ORIGIN RESOURCE SHARING (CORS) CUSTOM CONFIGURATIONS
-# ==============================================================================
+# ============================================================
+# CORS
+# ============================================================
 
-# Allows your local running React application instance to securely connect
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-# Configures Django REST Framework to enforce token protection globally
+
+# ============================================================
+# DJANGO REST FRAMEWORK
+# ============================================================
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -147,10 +178,37 @@ REST_FRAMEWORK = {
     ],
 }
 
-# Simple JWT Token Lifetime management and token rotation configurations
+
+# ============================================================
+# JWT
+# ============================================================
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': False,
 }
+
+
+# ============================================================
+# RENDER SECURITY
+# ============================================================
+
+SECURE_PROXY_SSL_HEADER = (
+    "HTTP_X_FORWARDED_PROTO",
+    "https",
+)
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+
+# ============================================================
+# CSRF
+# ============================================================
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://mini-contact-book-backend-project.onrender.com",
+]
