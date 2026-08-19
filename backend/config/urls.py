@@ -44,5 +44,5 @@ urlpatterns = [
     ),
 
     # Contact API
-    path("api/", router.urls),
+    path("api/", include(router.urls)),
 ]
